@@ -1,0 +1,14 @@
+# Typescript
+
+node_modules/
+.vscode/
+.idea/
+npm-debug.log*
+.cache/
+.env
+.next/
+*.log
+build/
+out/
+*.js.map
+coverage/
