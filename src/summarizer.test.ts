@@ -57,6 +57,20 @@ describe('summarize', () => {
     expect(Array.isArray(summary.nextRuns)).toBe(true);
   });
 
+  it('nextRuns contains Date objects', () => {
+    const summary = summarize('0 0 * * *', fixedDate);
+    summary.nextRuns.forEach((run) => {
+      expect(run).toBeInstanceOf(Date);
+    });
+  });
+
+  it('nextRuns are in ascending order', () => {
+    const summary = summarize('*/30 * * * *', fixedDate);
+    for (let i = 1; i < summary.nextRuns.length; i++) {
+      expect(summary.nextRuns[i].getTime()).toBeGreaterThan(summary.nextRuns[i - 1].getTime());
+    }
+  });
+
   it('complexity is a number', () => {
     const summary = summarize('*/5 * * * *', fixedDate);
     expect(typeof summary.complexity).toBe('number');
